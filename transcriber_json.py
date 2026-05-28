@@ -52,7 +52,11 @@ def json_to_netscape_cookies(json_file, txt_file):
                 f.write(line)
         return True
     except Exception as e:
+        print(f'[ERROR] Fallo al parsear JSON: {e}')
+        return False
     except Exception as e:
+        print(f'[ERROR] Fallo al parsear JSON: {e}')
+        return False
         print(f"[ERROR] Fallo al convertir cookies JSON a TXT: {e}")
         return False
 
@@ -88,6 +92,8 @@ def descargar_audio_autenticado(url, json_cookies_file="cookies.json"):
             print("\n[+] ¡Éxito! Audio extraído y guardado como 'audio_extraido.mp3'")
             return "audio_extraido.mp3"
     except Exception as e:
+        print(f'[ERROR] Fallo al parsear JSON: {e}')
+        return False
         print(f"\n[ERROR] Falló la extracción: {e}")
         return None
     finally:
