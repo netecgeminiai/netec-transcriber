@@ -34,7 +34,6 @@ def json_to_netscape_cookies(json_file, txt_file):
             
         with open(txt_file, 'w', encoding='utf-8') as f:
             f.write("# Netscape HTTP Cookie File\n")
-            f.write("# This is a generated file! Do not edit.\n\n")
             
             for cookie in cookies:
                 if not isinstance(cookie, dict):
@@ -49,8 +48,7 @@ def json_to_netscape_cookies(json_file, txt_file):
                 name = cookie.get('name', '')
                 value = cookie.get('value', '')
                 
-                line = f"{domain}	{include_subdomains}	{path}	{secure}	{expiration}	{name}	{value}
-"
+                line = f"{domain}\t{include_subdomains}\t{path}\t{secure}\t{expiration}\t{name}\t{value}\n"
                 f.write(line)
         return True
     except Exception as e:
