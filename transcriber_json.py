@@ -48,7 +48,7 @@ def json_to_netscape_cookies(json_file, txt_file):
                 name = cookie.get('name', '')
                 value = cookie.get('value', '')
                 
-                line = "{}	{}	{}	{}	{}	{}	{}
+                line = "\t".join([str(domain), str(include_subdomains), str(path), str(secure), str(expiration), str(name), str(value)]) + "\n"
 ".format(domain, include_subdomains, path, secure, expiration, name, value)
 \t{include_subdomains}\t{path}\t{secure}\t{expiration}\t{name}\t{value}\n"
                 f.write(line)
