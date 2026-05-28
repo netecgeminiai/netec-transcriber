@@ -54,3 +54,30 @@ def json_to_netscape_cookies(json_file, txt_file):
     except Exception as e:
         print(f'[ERROR] Fallo al parsear JSON: {e}')
         return False
+
+
+def descargar_audio_autenticado(url, json_cookies_file='cookies.json'):
+    print(f'[*] Iniciando extracción de: {url}')
+    if not os.path.exists(json_cookies_file):
+        print(f'[ERROR] No se encontró el archivo {json_cookies_file}.')
+        return None
+    txt_cookies_file = 'cookies_convertidas.txt'
+    if not json_to_netscape_cookies(json_cookies_file, txt_cookies_file):
+        return None
+    ydl_opts = {'format': 'bestaudio/best', 'cookiefile': txt_cookies_file, 'outtmpl': 'audio_extraido.%(ext)s', 'postprocessors': [{'key': 'FFmpegExtractAudio', 'preferredcodec': 'mp3', 'preferredquality': '128'}], 'quiet': False, 'no_warnings': True}
+    try:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([url])
+            print('\n[+] ¡Éxito! Audio extraído')
+            return 'audio_extraido.mp3'
+    except Exception as e:
+        print(f'\n[ERROR] Falló la extracción: {e}')
+        return None
+    finally:
+        if os.path.exists(txt_cookies_file):
+            os.remove(txt_cookies_file)
+
+if __name__ == '__main__':
+    url_test = input('Ingresa la URL del video privado: ')
+    if url_test.strip():
+        descargar_audio_autenticado(url_test.strip())
