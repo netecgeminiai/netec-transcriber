@@ -33,11 +33,8 @@ def json_to_netscape_cookies(json_file, txt_file):
             return False
             
         with open(txt_file, 'w', encoding='utf-8') as f:
-            f.write("# Netscape HTTP Cookie File
-")
-            f.write("# This is a generated file! Do not edit.
-
-")
+            f.write("# Netscape HTTP Cookie File\n")
+            f.write("# This is a generated file! Do not edit.\n\n")
             
             for cookie in cookies:
                 if not isinstance(cookie, dict):
